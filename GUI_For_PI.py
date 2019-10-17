@@ -6,6 +6,46 @@ import keyboard # Tools -> Manage Packages -> keyboard -> Install
 # similar to what we are doing:
 # https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
+
+ROBOT2018 = """|-------\                         
+| |----\ \                        
+| |     \ \        |------------| 
+|2|      \ \       |            | 
+|5|       \ \      |            | 
+|0|        \ \     |    [--]    | 
+|9|         \ \    |    [--]    | 
+| |          \ \   |----/ /-----| 
+|2|-----------\ \------/ /        
+|0|------------\ \------/         
+|1|             \ \               
+|8|              \ \              
+| |               \ \             
+| |                \ \         |-|
+|-------------------\-\--|-----|-|
+|.'''.    .'''.    .'''. |     (=)
+|------------------------|        
+ '...'    '...'    '...'          """
+
+
+ROBOT2019 = """
+              /--|
+             /   |
+            / /| |
+           / / |2|
+          / /  |5|
+   /-----/ /   |0|
+  /     / /    |9|
+ /     / /     | |
+                   /     / /      |2|         |----_-(0)
+              \    / /       |0|         | ,-'
+            \  / /        |1|---------|/
+            \/ /         |9|---------|
+            / /  |-----| | |         |
+           / /   |     | | |         |
+               / /  __|_____|_|_|         | '-._
+                    /.'''. || .'''. || .'''.    |-----¯---._
+     |------------------------|
+      '...'    '...'    '...' """
  
 HUTCH2509 = """
  |---|    |---|   |---|  |---|  |-----------|   /-------\  |---|    |---|
@@ -21,18 +61,18 @@ HUTCH2509 = """
            22    55          00      00   99     99
          22      5555555     00      00   99     99
        22              55    00      00   999999999
-     22                 55   00      00          99 
-   22                  55     00    00           99 
-  22222222222    5555555       000000            99"""
+     22                  55   00      00          99 
+   22                  55      00    00           99 
+  22222222222   5555555        000000            99"""
  
  
 root = Tk()
-root.geometry('1000x500+20+20')
+root.geometry('1376x750+-10+0') # My Laptop. Go to Windows -> Display Settings -> Resolution
 root.configure(bg='black')
  
 mainframe = Frame(root)
 mainframe["bg"] = 'black'
-mainframe.grid(column=1000, row=1000, sticky=(N, W, E, S))
+mainframe.grid(column=3, row=3, sticky=(N, W, E, S))
 
 mainframe.columnconfigure(3, weight=100)
 mainframe.rowconfigure(3, weight=100)
@@ -55,7 +95,7 @@ Team_Number.set("! TIGERBOTS !")
 Team_Number_L = Label(mainframe, textvariable=Team_Number, bg='black', fg='gold',  font=f'{Font_Family} {Font_Size} bold')
 Team_Number_L.grid(row=0, column=0, padx=50)
  
-Team_Number_R = Label(mainframe,textvariable=Team_Number,bg='black',fg='gold', font=f'{Font_Family} {Font_Size}')
+Team_Number_R = Label(mainframe,textvariable=Team_Number,bg='black',fg='gold', font=f'{Font_Family} {Font_Size} bold')
 Team_Number_R.grid(row=0, column=2, padx=50)
 
 # Row 1
@@ -87,13 +127,13 @@ Count1_Label = Label(mainframe,textvariable=Count1,bg='black',fg='gold', font=f'
 Count1_Label.grid(row=2, column=0, padx=50)
 
 Middle = StringVar()
-Middle.set('start2')
+Middle.set(ROBOT2018)
 
 Middle_Label = Label(mainframe,textvariable=Middle,bg='black',fg='gold', font=f'{Font_Family} {Font_Size}')
 Middle_Label.grid(row=2, column=1,padx=50)
 
 Count2 = StringVar()
-Count2.set("image")
+Count2.set("start")
 
 Count2_Label = Label(mainframe,textvariable=Count2,bg='black',fg='gold', font=f'{Font_Family} {Font_Size}')
 Count2_Label.grid(row=2,column=2,padx=50)
@@ -112,7 +152,6 @@ def run(n, i, master):
     else:
         i = 0
         n = 0
-        Title_String.set("Wow U R Cool")
         master.after(100, run, n, i, master)
         
 #def run2(n, i,master):
