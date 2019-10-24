@@ -1,11 +1,6 @@
 from tkinter import *
 import time
-import keyboard # Tools -> Manage Packages -> keyboard -> Install
-
-# Also I found a good video of how to do something
-# similar to what we are doing:
-# https://www.youtube.com/watch?v=dQw4w9WgXcQ
-
+import RPi.GPIO as GPIO
 
 ROBOT2018 = """|-------\                         
 | |----\ \                        
@@ -62,23 +57,38 @@ HUTCH2509 = """
          22      5555555     00      00   99     99
        22              55    00      00   999999999
      22                  55   00      00          99 
-   22                  55      00    00           99 
-  22222222222   5555555        000000            99"""
+   22                   55     00    00           99 
+  22222222222    5555555       000000            99"""
  
- 
+# Sets the pin numbers for the buttons
+L_Add = 18 # Adds 1 to Count1
+R_Add = 23 # Adds 1 to Count2
+L_Sub = 24 # Subtracts 1 from Count1
+R_Sub = 25 # Subtracts 1 from Count2
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(L_Add, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(R_Add, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(L_Sub, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(R_Sub, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
+Finish_Value = 9 # Determines when the program will restart
+
 root = Tk()
-root.geometry('1376x750+-10+0') # My Laptop. Go to Windows -> Display Settings -> Resolution
+root.geometry('1020x710+0+0') # Sets the Resolution. My Laptop. Go to Windows -> Display Settings -> Resolution
 root.configure(bg='black')
  
 mainframe = Frame(root)
 mainframe["bg"] = 'black'
-mainframe.grid(column=3, row=3, sticky=(N, W, E, S))
+mainframe.grid(column=3, row=3, sticky=(N, W, E, S)) # Sets up the grid
 
 mainframe.columnconfigure(3, weight=100)
 mainframe.rowconfigure(3, weight=100)
 
-Font_Size = 11
+Font_Size = 9
 Font_Family = 'Consolas'
+padx_Size = 50
+pady_Size = 20
 
 # Row 0
 
@@ -87,74 +97,106 @@ Title_String.set(HUTCH2509)
 
 #Title_Label = Label(mainframe,textvariable=Title_String,bg='black',fg='gold',font=("Helvetica", Font_Size))
 Title_Label = Label(mainframe,textvariable=Title_String,bg='black',fg='gold',font=f'{Font_Family} {Font_Size} bold')
-Title_Label.grid(row=0, column=1, padx=50)
+Title_Label.grid(row=0, column=1, padx=padx_Size, pady=pady_Size)
  
 Team_Number = StringVar()
 Team_Number.set("! TIGERBOTS !")
 
 Team_Number_L = Label(mainframe, textvariable=Team_Number, bg='black', fg='gold',  font=f'{Font_Family} {Font_Size} bold')
-Team_Number_L.grid(row=0, column=0, padx=50)
+Team_Number_L.grid(row=0, column=0, padx=padx_Size, pady=pady_Size)
  
 Team_Number_R = Label(mainframe,textvariable=Team_Number,bg='black',fg='gold', font=f'{Font_Family} {Font_Size} bold')
-Team_Number_R.grid(row=0, column=2, padx=50)
+Team_Number_R.grid(row=0, column=2, padx=padx_Size, pady=pady_Size)
 
 # Row 1
 
 Answer1 = StringVar()
-Answer1.set('Woofer')
+Answer1.set('DOG')
 
-Answer1_Label = Label(mainframe,textvariable=Answer1,bg='black',fg='gold', font=f'{Font_Family} {Font_Size}')
-Answer1_Label.grid(row=1, column=0, padx=50)
+Answer1_Label = Label(mainframe,textvariable=Answer1,bg='black',fg='gold', font=f'Hack 20')
+Answer1_Label.grid(row=1, column=0, padx=padx_Size, pady=pady_Size)
 
-Question = StringVar()
-Question.set('Which animal')
+Middle = StringVar()
+Middle.set(ROBOT2019)
 
-Question_Label = Label(mainframe,textvariable=Question,bg='black',fg='gold', font=f'{Font_Family} {Font_Size}')
-Question_Label.grid(row=1, column=1,padx=50)
+Middle_Label = Label(mainframe,textvariable=Middle,bg='black',fg='gold', font=f'{Font_Family} 8')
+Middle_Label.grid(row=1, column=1,padx=padx_Size, pady=pady_Size)
 
 Answer2 = StringVar()
-Answer2.set("Meower")
+Answer2.set("CAT")
 
-Answer2_Label = Label(mainframe,textvariable=Answer2,bg='black',fg='gold', font=f'{Font_Family} {Font_Size}')
-Answer2_Label.grid(row=1,column=2,padx=50)
+Answer2_Label = Label(mainframe,textvariable=Answer2,bg='black',fg='gold', font=f'Hack 20')
+Answer2_Label.grid(row=1,column=2,padx=padx_Size, pady=pady_Size)
 
  # Row 2
  
 Count1 = StringVar()
-Count1.set('start')
+Count1.set('0')
 
-Count1_Label = Label(mainframe,textvariable=Count1,bg='black',fg='gold', font=f'{Font_Family} {Font_Size}')
-Count1_Label.grid(row=2, column=0, padx=50)
+Count1_Label = Label(mainframe,textvariable=Count1,bg='black',fg='gold', font=f'Hack 35')
+Count1_Label.grid(row=2, column=0, padx=padx_Size, pady=pady_Size)
 
-Middle = StringVar()
-Middle.set(ROBOT2018)
+Question = StringVar()
+Question.set('Which is your favorite animal?')
 
-Middle_Label = Label(mainframe,textvariable=Middle,bg='black',fg='gold', font=f'{Font_Family} {Font_Size}')
-Middle_Label.grid(row=2, column=1,padx=50)
+Question_Label = Label(mainframe,textvariable=Question,bg='black',fg='gold', font=f'Hack 22')
+Question_Label.grid(row=2, column=1,padx=padx_Size, pady=pady_Size)
 
 Count2 = StringVar()
-Count2.set("start")
+Count2.set("0")
 
-Count2_Label = Label(mainframe,textvariable=Count2,bg='black',fg='gold', font=f'{Font_Family} {Font_Size}')
-Count2_Label.grid(row=2,column=2,padx=50)
- 
-def run(n, i, master):
-    Count1.set('%d' % (n))
-    Count2.set('%d' % (i))
-    if keyboard.is_pressed('q'):
-        n += 1
-        time.sleep(0.1)
-    if keyboard.is_pressed('w'):
-        i += 1
-        time.sleep(0.1)
-    if n <= 10 or i <= 10:
-        master.after(1, run, n, i, master)
+Count2_Label = Label(mainframe,textvariable=Count2,bg='black',fg='gold', font=f'Hack 35')
+Count2_Label.grid(row=2,column=2,padx=padx_Size, pady=pady_Size)
+
+# Runs whenever a button is pressed
+def buttonPress(channel):
+    global Finish_Value
+    if (int(Count1.get()) == Finish_Value and channel == L_Add) or (int(Count2.get()) == Finish_Value and channel == R_Add):
+        finish()
+    elif channel == L_Ad    d: # Adds 1 to Count1
+        Count1.set(int(Count1.get()) + 1)
+    elif channel == R_Add: # Adds 1 to Count2
+        Count2.set(int(Count2.get()) + 1)
+    elif (channel == L_Sub) and (int(Count1.get()) > 0): # Subtracts 1 from Count1 if it is greater than 0
+        print(int(Count1.get()))
+        Count1.set(int(Count1.get()) - 1)
+    elif(channel == R_Sub) and (int(Count2.get()) > 0): # Subtracts 1 from the Count2 if it is greater than 0
+        print(int(Count2.get()))
+        Count2.set(int(Count2.get()) - 1)
     else:
-        i = 0
-        n = 0
-        master.after(100, run, n, i, master)
-        
-#def run2(n, i,master):
+        pass
 
-run(0, 0, mainframe)
+# Runs when either Count is equal to Finish_Value. Resets the Counts and briefly changes the color of the screen
+def finish():
+    print("FINISH")
+    Count1.set('0')
+    Count2.set('0')
+    change_color('black','gold')
+    time.sleep(1)    
+    change_color('gold','black')
+
+# Changes the color of the text and background
+def change_color(color, color2): # change_color(NewTextColor, NewBackgroundColor)
+    Middle_Label.config(fg=color, bg=color2)
+    Title_Label.config(fg=color, bg=color2)
+    Question_Label.config(fg=color, bg=color2)
+    Count1_Label.config(fg=color, bg=color2)
+    Count2_Label.config(fg=color, bg=color2)
+    Team_Number_L.config(fg=color, bg=color2)
+    Team_Number_R.config(fg=color, bg=color2)
+    Middle_Label.config(fg=color, bg=color2)
+    Answer1_Label.config(fg=color, bg=color2)
+    Answer2_Label.config(fg=color, bg=color2)
+    root.configure(bg=color2)
+    
+
+# Adds event catchers for the buttons
+GPIO.add_event_detect(L_Add, GPIO.RISING, callback=buttonPress, bouncetime=300)
+GPIO.add_event_detect(R_Add, GPIO.RISING, callback=buttonPress, bouncetime=300)
+GPIO.add_event_detect(L_Sub, GPIO.RISING, callback=buttonPress, bouncetime=300)
+GPIO.add_event_detect(R_Sub, GPIO.RISING, callback=buttonPress, bouncetime=300)
+
+
+# run(0, 0, mainframe)
 root.mainloop()
+GPIO.cleanup()
