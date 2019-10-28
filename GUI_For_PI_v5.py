@@ -26,7 +26,7 @@ Finish_Value = random.randint(Finish_Value_Lower_Limit, Finish_Value_Upper_Limit
  
 root = Tk()
 root.geometry('1600x900+0+0') # Sets the Resolution. My Laptop. Go to Windows -> Display Settings -> Resolution
-root.configure(bg='pink') # Sets the background of the root window to black. bg = background, fg = foreground
+root.configure(bg='black') # Sets the background of the root window to black. bg = background, fg = foreground
 
 PHOTO = PhotoImage(file="logo350.png") #Gets the image to display. Images must be in .png format
 
@@ -51,7 +51,7 @@ Answer1 = StringVar()
 Answer1.set(Start_Question[1])
 
 Answer1_Label = Label(mainframe,textvariable=Answer1,bg='black',fg='gold', font=f'Consolas 45 bold')# hack 60
-Answer1_Label.grid(row=1, column=0, padx=0, pady=pady_Size)
+Answer1_Label.grid(row=1, column=0, padx=15, pady=pady_Size)
 
 photo_label = Label(mainframe, image=PHOTO, bg='black')
 photo_label.grid(row=1, rowspan = 2, column = 1, sticky = W+E+N+S,padx=80) #padx=padx_Size, pady=0
@@ -61,7 +61,7 @@ Answer2 = StringVar()
 Answer2.set(Start_Question[2])
 
 Answer2_Label = Label(mainframe,textvariable=Answer2,bg='black',fg='gold', font=f'Consolas 45 bold') # hack 60
-Answer2_Label.grid(row=1,column=2,padx=20, pady=pady_Size)
+Answer2_Label.grid(row=1,column=2,padx=15, pady=pady_Size)
 
 # Row 2
 

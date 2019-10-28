@@ -3,37 +3,25 @@ import time
 import random
 import RPi.GPIO as GPIO
 import Question_Handler as QH
- 
-# Sets the pin numbers for the buttons
-L_Add = 23 # Adds 1 to Count1
-R_Add = 25 # Adds 1 to Count2
-L_Sub = 24 # Subtracts 1 from Count1
-R_Sub = 18 # Subtracts 1 from Count2
-Auto_Finish = 4 # Finishes the game
+from Button_Object import Button_Object
+import Constants
 
-# Sets up the GPIO pins
+# Sets up GPIO for channel reference. For BOARD vs BCM, Look Here:
+# https://raspberrypi.stackexchange.com/questions/12966/what-is-the-difference-between-board-and-bcm-for-gpio-pin-numbering
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(L_Add, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(R_Add, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(L_Sub, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(R_Sub, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(Auto_Finish, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # Gets a number 5 through 25 that will determine when the program will restart
-Finish_Value_Upper_Limit = 25
-Finish_Value_Lower_Limit = 5
-Finish_Value = random.randint(Finish_Value_Lower_Limit, Finish_Value_Upper_Limit)
+Finish_Value = random.randint(Constants.Finish_Value_Lower_Limit, Constants.Finish_Value_Upper_Limit)
  
 root = Tk()
-root.geometry('1600x900+0+0') # Sets the Resolution. My Laptop. Go to Windows -> Display Settings -> Resolution
-root.configure(bg='pink') # Sets the background of the root window to black. bg = background, fg = foreground
+root.geometry(f'{Constants.Window_Width}x{Constants.Window_Height}+{Constants.SpawnPoint_X}+{Constants.SpawnPoint_Y}')
+root.configure(bg=Constants.Window_Background_Color.lower())
 
-# Adjust padx and pady values if a different resolution image must be used
-PHOTO = PhotoImage(file="logo350.png") #Gets the image to display. Images must be in .png format
+PHOTO = PhotoImage(file=Constants.Photo_Image_File)
 
 mainframe = Frame(root)
-mainframe["bg"] = 'black' # Sets the mainframe background color to black
-mainframe.grid(column=3, row=3, sticky=(N, W, E, S)) # Sets up the grid
+mainframe["bg"] = Constants.Window_Background_Color.lower()
+mainframe.grid(column=Constants.Window_Number_Of_Columns, row=Constants.Window_Number_Of_Rows, sticky=(N, W, E, S))
 
 # Sets up the rows and columns of the grids
 mainframe.columnconfigure(3, weight=100)
@@ -69,12 +57,12 @@ Answer1 = StringVar()
 Answer1.set(Start_Question[1])
 
 # Applies the settings and displays the label
-Answer1_Label = Label(mainframe,textvariable=Answer1,bg='black',fg='gold', font=f'{Answer_Label_Font} {Answer_Label_Fontsize} bold')
-Answer1_Label.grid(row=1, column=0, padx=Answer_Label_padx, pady=Answer_Label_pady)
+Answer1_Label = Label(mainframe, textvariable=Answer1, bg='black', fg='gold', font=f'{Answer_Label_Font} {Answer_Label_Fontsize} bold')
+Answer1_Label.grid(row=1, column=1, padx=Answer_Label_padx, pady=Answer_Label_pady)
 
 # Sets up the image settings and displays the image
 photo_label = Label(mainframe, image=PHOTO, bg='black')
-photo_label.grid(row=1, rowspan = 2, column = 1, sticky = W+E+N+S, padx = Image_padx)
+photo_label.grid(row=1, rowspan = 2, column = 2, sticky = W+E+N+S, padx = Image_padx)
 
 # Sets up the label and gets the string to be displayed
 Answer2 = StringVar()
@@ -82,7 +70,7 @@ Answer2.set(Start_Question[2])
 
 # Applies the settings and displays the label
 Answer2_Label = Label(mainframe,textvariable=Answer2,bg='black',fg='gold', font=f'{Answer_Label_Font} {Answer_Label_Fontsize} bold')
-Answer2_Label.grid(row=1,column=2, padx=Answer_Label_padx, pady=Answer_Label_pady)
+Answer2_Label.grid(row=1,column=3, padx=Answer_Label_padx, pady=Answer_Label_pady)
 
 # Row 2
 
@@ -91,8 +79,8 @@ Count1 = StringVar()
 Count1.set('00')
 
 # Applies the settings and displays the number
-Count1_Label = Label(mainframe,textvariable=Count1,bg='black',fg='gold', font=f'{Number_Font} {Number_Fontsize} bold')
-Count1_Label.grid(row=2, column=0, padx=Number_padx, pady=Number_pady)
+Count1_Label = Label(mainframe, textvariable=Count1, bg='black', fg='gold', font=f'{Number_Font} {Number_Fontsize} bold')
+Count1_Label.grid(row=2, column=1, padx=Number_padx, pady=Number_pady)
 
 # Sets up the label
 Count2 = StringVar()
@@ -100,7 +88,7 @@ Count2.set("00")
 
 # Applies the settings and displays the number
 Count2_Label = Label(mainframe,textvariable=Count2,bg='black',fg='gold', font=f'{Number_Font} {Number_Fontsize} bold')
-Count2_Label.grid(row=2,column=2,padx=Number_padx, pady=Number_pady)
+Count2_Label.grid(row=2,column=3,padx=Number_padx, pady=Number_pady)
 
 # Row 3
 
@@ -110,30 +98,31 @@ Question.set(Start_Question[0])
 
 # Applies the settings and displays the question
 Question_Label = Label(mainframe,textvariable=Question,bg='black',fg='gold', font=f'{Question_Font} {Question_Fontsize} bold')
-Question_Label.grid(row=3, column=0, columnspan = 3, sticky=W+E+N+S) #padx=padx_Size, pady=pady_Size
+Question_Label.grid(row=3, column=1, columnspan = 3, sticky=W+E+N+S) #padx=padx_Size, pady=pady_Size
 
 # Runs whenever a button is pressed
 def buttonPress(channel):
+    
     global Finish_Value
-    if (int(Count1.get()) == Finish_Value and channel == L_Add) or (int(Count2.get()) == Finish_Value and channel == R_Add) or channel == Auto_Finish:
-        finish()
-    elif channel == L_Add: # Adds 1 to Count1
+    
+    if (int(Count1.get()) == Finish_Value and channel == Constants.L_Add) or (int(Count2.get()) == Finish_Value and channel == R_Add):
+        finish(channel)
+    
+    elif channel == Constants.L_Add:
         Count1.set(convert_number(int(Count1.get()) + 1))
-    elif channel == R_Add: # Adds 1 to Count2
+        
+    elif channel == Constants.R_Add: # Adds 1 to Count2
         Count2.set(convert_number(int(Count2.get()) + 1))
-    elif (channel == L_Sub) and (int(Count1.get()) > 0): # Subtracts 1 from Count1 if it is greater than 0
-        # print(int(Count1.get()))
+    
+    elif (channel == Constants.L_Sub) and (int(Count1.get()) > 0):
         Count1.set(convert_number(int(Count1.get()) - 1))
-    elif(channel == R_Sub) and (int(Count2.get()) > 0): # Subtracts 1 from the Count2 if it is greater than 0
-        # print(int(Count2.get()))
+    
+    elif(channel == Constants.R_Sub) and (int(Count2.get()) > 0):
         Count2.set(convert_number(int(Count2.get()) - 1))
-    else:
-        pass
 
 # Runs when either Count is equal to Finish_Value or when the Auto_Finish button is pressed.
 # Makes the screen flash, resets the numbers, and gets a new random question
-def finish():
-    global Finish_Value
+def finish(channel):
     # Resets the values
     Count1.set('00')
     Count2.set('00')
@@ -143,8 +132,9 @@ def finish():
         time.sleep(0.5)    
         change_color('gold','black')
         time.sleep(0.5)
+    
     # Gets another random number between 5 and 25 to determine when the program will restart
-    Finish_Value = random.randint(Finish_Value_Lower_Limit, Finish_Value_Upper_Limit)
+    Finish_Value = random.randint(Constants.Finish_Value_Lower_Limit, Constants.Finish_Value_Upper_Limit)
     
     # Gets a new random question
     New_Question = QH.getRandomQuestion()
@@ -169,16 +159,13 @@ def convert_number(num):
         num = f'0{num}'
     return num
 
-# Adds event catchers for the buttons
-GPIO.add_event_detect(L_Add, GPIO.RISING, callback=buttonPress, bouncetime=1000)
-GPIO.add_event_detect(R_Add, GPIO.RISING, callback=buttonPress, bouncetime=1000)
-GPIO.add_event_detect(L_Sub, GPIO.RISING, callback=buttonPress, bouncetime=1000)
-GPIO.add_event_detect(R_Sub, GPIO.RISING, callback=buttonPress, bouncetime=1000)
-GPIO.add_event_detect(Auto_Finish, GPIO.RISING, callback=buttonPress, bouncetime=3000)
+
+L_Add_Button = Button_Object(Constants.L_Add, buttonPress, 1000)
+R_Add_Button = Button_Object(Constants.R_Add, buttonPress, 1000)
+L_Sub_Button = Button_Object(Constants.L_Sub, buttonPress, 1000)
+R_Sub_Button = Button_Object(Constants.R_Sub, buttonPress, 1000)
+Auto_Finish = Button_Object(Constants.Auto_Finish, finish, 1000)
 
 
 # Updates the screen
 root.mainloop()
-
-GPIO.cleanup()
-
