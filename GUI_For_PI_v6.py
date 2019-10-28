@@ -21,11 +21,11 @@ PHOTO = PhotoImage(file=Constants.Photo_Image_File)
 
 mainframe = Frame(root)
 mainframe["bg"] = Constants.Window_Background_Color.lower()
-mainframe.grid(column=Constants.Window_Number_Of_Columns, row=Constants.Window_Number_Of_Rows, sticky=(N, W, E, S))
+mainframe.grid(sticky=(N, W, E, S))
 
 # Sets up the rows and columns of the grids
-mainframe.columnconfigure(3, weight=100)
-mainframe.rowconfigure(3, weight=100)
+mainframe.columnconfigure(Constants.Window_Number_Of_Columns, weight=Constants.Window_Column_Weight)
+mainframe.rowconfigure(Constants.Window_Number_Of_Rows, weight=Constants.Window_Row_Weight)
 
 # Settings for the image
 Image_padx = 80

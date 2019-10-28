@@ -26,7 +26,9 @@ Photo_Image_File = "logo350.png"
 # Window Variables
 Window_Background_Color = 'black'
 Window_Number_Of_Columns = 3
+Window_Column_Weight = 100
 Window_Number_Of_Rows = 3
+Window_Row_Weight = 100
 
 # Answer 1
 Answer1_Row = 1
