@@ -27,26 +27,6 @@ mainframe.grid(sticky=(N, W, E, S))
 mainframe.columnconfigure(Constants.Window_Number_Of_Columns, weight=Constants.Window_Column_Weight)
 mainframe.rowconfigure(Constants.Window_Number_Of_Rows, weight=Constants.Window_Row_Weight)
 
-# Settings for the image
-Image_padx = 80
-Image_pady = 0
-
-# Settings for the answer labels
-Answer_Label_pady = 100
-Answer_Label_padx = 0
-Answer_Label_Font = 'Consolas'
-Answer_Label_Fontsize = 45
-
-# Settings for the numbers
-Number_pady = 100
-Number_padx = 0
-Number_Font = 'Hack'
-Number_Fontsize = 120
-
-# Settings for the question
-Question_Font = 'Consolas'
-Question_Fontsize = 60
-
 # Row 1
 
 # Gets a random question from Question_Handler.py (Imported at the top as QH)
@@ -57,20 +37,20 @@ Answer1 = StringVar()
 Answer1.set(Start_Question[1])
 
 # Applies the settings and displays the label
-Answer1_Label = Label(mainframe, textvariable=Answer1, bg='black', fg='gold', font=f'{Answer_Label_Font} {Answer_Label_Fontsize} bold')
-Answer1_Label.grid(row=1, column=1, padx=Answer_Label_padx, pady=Answer_Label_pady)
+Answer1_Label = Label(mainframe, textvariable=Answer1, bg=Constants.Answer1_Background, fg=Constants.Answer1_Font_Color, font=f'{Constants.Answer1_Font} {Constants.Answer1_Font_Size} bold')
+Answer1_Label.grid(row=Constants.Answer1_Row, column=Constants.Answer1_Column, padx=Constants.Answer1_padx, pady=Constants.Answer1_pady)
 
 # Sets up the image settings and displays the image
-photo_label = Label(mainframe, image=PHOTO, bg='black')
-photo_label.grid(row=1, rowspan = 2, column = 2, sticky = W+E+N+S, padx = Image_padx)
+photo_label = Label(mainframe, image=PHOTO, bg=Constants.Image_Background)
+photo_label.grid(row=Constants.Image_Row, rowspan = Constants.Image_Rowspan, column = Constants.Image_Column, sticky = W+E+N+S, padx = Constants.Image_padx, pady=Constants.Image_pady)
 
 # Sets up the label and gets the string to be displayed
 Answer2 = StringVar()
 Answer2.set(Start_Question[2])
 
 # Applies the settings and displays the label
-Answer2_Label = Label(mainframe,textvariable=Answer2,bg='black',fg='gold', font=f'{Answer_Label_Font} {Answer_Label_Fontsize} bold')
-Answer2_Label.grid(row=1,column=3, padx=Answer_Label_padx, pady=Answer_Label_pady)
+Answer2_Label = Label(mainframe,textvariable=Answer2,bg=Constants.Answer2_Background,fg=Constants.Answer2_Font_Color, font=f'{Constants.Answer2_Font} {Constants.Answer2_Font_Size} bold')
+Answer2_Label.grid(row=Constants.Answer2_Row,column=Constants.Answer2_Column, padx=Constants.Answer2_padx, pady=Constants.Answer2_pady)
 
 # Row 2
 
@@ -79,16 +59,16 @@ Count1 = StringVar()
 Count1.set('00')
 
 # Applies the settings and displays the number
-Count1_Label = Label(mainframe, textvariable=Count1, bg='black', fg='gold', font=f'{Number_Font} {Number_Fontsize} bold')
-Count1_Label.grid(row=2, column=1, padx=Number_padx, pady=Number_pady)
+Count1_Label = Label(mainframe, textvariable=Count1, bg=Constants.Count1_Background, fg=Constants.Count1_Font_Color, font=f'{Constants.Count1_Font} {Constants.Count1_Font_Size} bold')
+Count1_Label.grid(row=Constants.Count1_Row, column=Constants.Count1_Column, padx=Constants.Count1_padx, pady=Constants.Count1_pady)
 
 # Sets up the label
 Count2 = StringVar()
 Count2.set("00")
 
 # Applies the settings and displays the number
-Count2_Label = Label(mainframe,textvariable=Count2,bg='black',fg='gold', font=f'{Number_Font} {Number_Fontsize} bold')
-Count2_Label.grid(row=2,column=3,padx=Number_padx, pady=Number_pady)
+Count2_Label = Label(mainframe,textvariable=Count2,bg=Constants.Count2_Background,fg=Constants.Count2_Font_Color, font=f'{Constants.Count2_Font} {Constants.Count2_Font_Size} bold')
+Count2_Label.grid(row=Constants.Count2_Row,column=Constants.Count2_Column,padx=Constants.Count2_padx, pady=Constants.Count2_pady)
 
 # Row 3
 
@@ -97,15 +77,15 @@ Question = StringVar()
 Question.set(Start_Question[0])
 
 # Applies the settings and displays the question
-Question_Label = Label(mainframe,textvariable=Question,bg='black',fg='gold', font=f'{Question_Font} {Question_Fontsize} bold')
-Question_Label.grid(row=3, column=1, columnspan = 3, sticky=W+E+N+S) #padx=padx_Size, pady=pady_Size
+Question_Label = Label(mainframe,textvariable=Question, bg=Constants.Question_Background, fg=Constants.Question_Font_Color, font=f'{Constants.Question_Font} {Constants.Question_Font_Size} bold')
+Question_Label.grid(row=Constants.Question_Row, column=Constants.Question_Column, columnspan = Constants.Question_Columnspan, sticky=W+E+N+S)
 
 # Runs whenever a button is pressed
 def buttonPress(channel):
     
     global Finish_Value
     
-    if (int(Count1.get()) == Finish_Value and channel == Constants.L_Add) or (int(Count2.get()) == Finish_Value and channel == R_Add):
+    if (int(Count1.get()) == Finish_Value and channel == Constants.L_Add) or (int(Count2.get()) == Finish_Value and channel == Constants.R_Add):
         finish(channel)
     
     elif channel == Constants.L_Add:
@@ -128,10 +108,10 @@ def finish(channel):
     Count2.set('00')
     # Makes the screen flash twice
     for x in range(2):
-        change_color('black','gold')
-        time.sleep(0.5)    
+        change_color(Constants.Finish_Font_Color,Constants.Finish_Background)
+        time.sleep(Constants.Finish_Flash_Time)    
         change_color('gold','black')
-        time.sleep(0.5)
+        time.sleep(Constants.Finish_Flash_Time)
     
     # Gets another random number between 5 and 25 to determine when the program will restart
     Finish_Value = random.randint(Constants.Finish_Value_Lower_Limit, Constants.Finish_Value_Upper_Limit)
@@ -150,6 +130,7 @@ def change_color(color, color2): # change_color(NewTextColor, NewBackgroundColor
     Count2_Label.config(fg=color, bg=color2)
     Answer1_Label.config(fg=color, bg=color2)
     Answer2_Label.config(fg=color, bg=color2)
+    photo_label.config(bg=color2)
     mainframe["bg"] = color2
     root.configure(bg=color2)
 
@@ -160,11 +141,11 @@ def convert_number(num):
     return num
 
 
-L_Add_Button = Button_Object(Constants.L_Add, buttonPress, 1000)
-R_Add_Button = Button_Object(Constants.R_Add, buttonPress, 1000)
-L_Sub_Button = Button_Object(Constants.L_Sub, buttonPress, 1000)
-R_Sub_Button = Button_Object(Constants.R_Sub, buttonPress, 1000)
-Auto_Finish = Button_Object(Constants.Auto_Finish, finish, 1000)
+L_Add_Button = Button_Object(Constants.L_Add, buttonPress, Constants.L_Add_Bouncetime)
+R_Add_Button = Button_Object(Constants.R_Add, buttonPress, Constants.R_Add_Bouncetime)
+L_Sub_Button = Button_Object(Constants.L_Sub, buttonPress, Constants.L_Sub_Bouncetime)
+R_Sub_Button = Button_Object(Constants.R_Sub, buttonPress, Constants.R_Sub_Bouncetime)
+Auto_Finish = Button_Object(Constants.Auto_Finish, finish, Constants.Auto_Finish_Bouncetime)
 
 
 # Updates the screen
