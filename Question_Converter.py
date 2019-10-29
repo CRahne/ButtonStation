@@ -10,7 +10,7 @@
 
 
 # User Inputs filename
-filename = input("File Name: ")
+filename = input("CSV File Name (without extension): ")
 
 # Opening and getting the values in the selected file
 with open(f"{filename}.csv",'r') as File:
@@ -71,7 +71,7 @@ for question in Questions:
         else:
             question[2] = str(holder)
             x = 1
-#            print(question[1]," | ",question[2]) # Uncomment if you want to see all of the values previously
+#             print(question[1]," | ",question[2]) # Uncomment if you want to see all of the values previously
 
 # If the program messed up and didn't do what it was suppose to do,
 # this code will check if the values are all the same length. If they aren't
@@ -90,7 +90,7 @@ if isbad:
 # called filename_converted
 choice = input("Do you want to write to a file? y/n  ")
 if choice.upper() == "Y":
-    with open(f'{filename}_converted.csv','w+') as file:
+    with open(f'Questions_converted.csv','w+') as file:
         Amount_Of_Questions = len(Questions)
         Question_Ticker = 1
         for Question in Questions:
