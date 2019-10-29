@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 
+# Sets up a new button
 class ButtonFactory:
     
     def __init__(self, channel, action, BounceTime):
