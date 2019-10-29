@@ -64,4 +64,3 @@ file.
 If you need to change the button pins, background or font colors, or other program settings, open the Constants.py file and
 find the variables that correspond to the value you wish to change. If you change resolution settings (Window height and width),
 you will also have to change padx and pady settings in order to make the display look natural.
->>>>>>> ff00cd941e8d06de4616fbfab661ff88230200d6
