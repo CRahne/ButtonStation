@@ -10,7 +10,7 @@ L_Add_Bouncetime = 1000
 R_Add_Bouncetime = 1000
 L_Sub_Bouncetime = 1000
 R_Sub_Bouncetime = 1000
-Auto_Finish_Bouncetime = 1000                                                                                                                                                                                       
+Auto_Finish_Bouncetime = 3000                                                                                                                                                                                       
 
 # Tkinter Geometry Constants
  # Spawnpoints are where the GUI pops up when initialized. They
@@ -95,5 +95,5 @@ Finish_Value_Upper_Limit = 25
 Finish_Value_Lower_Limit = 5
 # Time inbetween screen changes, in seconds
 Finish_Flash_Time = 0.5
-Finish_Font_Color = 'black'
-Finish_Background = 'gold'
+Finish_Flash_Font_Color = 'black'
+Finish_Flash_Background_Color = 'gold'

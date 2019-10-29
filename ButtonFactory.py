@@ -1,6 +1,6 @@
 import RPi.GPIO as GPIO
 
-class Button_Object:
+class ButtonFactory:
     
     def __init__(self, channel, action, BounceTime):
         GPIO.setup(channel, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
