@@ -33,5 +33,3 @@ Check to where you set the mode of the GPIO to either BCM or BOARD (this changes
 ### Buttons are Phantom Pressing
 
 Sometimes with limit switches, they are touchy. So they will register hits when it you don't press it
-
-###
