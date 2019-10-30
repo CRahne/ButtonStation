@@ -10,6 +10,10 @@ a user presses a button. The program will choose a random number between two pre
 either of the counts reaches that number, the screen will briefly flash, then reset the counts and 
 choose a different random question.
 
+# Wiring
+![alt text](https://github.com/CRahne/Intro_CS_GUI/blob/Library/Docs/This.jpg)
+Our wiring was done on a 40-pin pi, and the default pins are 4, 18, 23, 24, and 25.
+
 # Files
 ### Button_Object.py
 This file is used to set up the buttons and adds event catchers for each button.
@@ -61,6 +65,10 @@ image must be in .png format. Then, open Constants.py and change the Photo_Image
 file.
 
 # Changing other Settings
-If you need to change the button pins, background or font colors, or other program settings, open the Constants.py file and
-find the variables that correspond to the value you wish to change. If you change resolution settings (Window height and width),
-you will also have to change padx and pady settings in order to make the display look natural.
+All other settings will be changed using the variables in Constants.py.
+
+### Changing the screen resolution / window size
+The settings for the size of the window are near the top of Constants.py. Changing these numbers will change the size of the 
+window, but font size, the size of the image, and padding **Will not** adjust to fit the new settings, and will have to be
+adjusted manually using the padx, pady, and font size variables in Constants.py
+
