@@ -11,7 +11,7 @@ either of the counts reaches that number, the screen will briefly flash, then re
 choose a different random question.
 
 # Wiring
-![alt text](https://github.com/CRahne/Intro_CS_GUI/blob/Library/Docs/This.jpg)
+![alt text](https://github.com/CRahne/Intro_CS_GUI/blob/Library/Docs/Diagram.jpg)
 Our wiring was done on a 40-pin pi, and the default pins are 4, 18, 23, 24, and 25.
 
 # Files
