@@ -10,12 +10,14 @@ a user presses a button. The program will choose a random number between two pre
 either of the counts reaches that number, the screen will briefly flash, then reset the counts and 
 choose a different random question.
 
+In order to run the program, run GUI_For_PI_v6.py.
+
 # Wiring
 ![alt text](https://github.com/CRahne/Intro_CS_GUI/blob/Library/Docs/Diagram.jpg)
 Our wiring was done on a 40-pin pi, and the default pins are 4, 18, 23, 24, and 25.
 
 # Files
-### Button_Object.py
+### ButtonFactory.py
 This file is used to set up the buttons and adds event catchers for each button.
 
 ### Constants.py
@@ -50,6 +52,7 @@ is only used by the programmer when adding or removing questions.
 In order to add a question, you must go to Questions.csv and add the question and it's two respsonses. Each entry
 must be comma seperated. Each line should look like this:
 `Question,Response,Response,`
+If you want to create a new file containing questions, it must be in .csv format and located in the same folder as Question_Handler.py.
 After you have added the questions you want to add, you must run Question_Converter.py. When prompted, input the
 name of the file containing the new questions, and enter "y" when prompted to write the converted questions to 
 Questions.converted.csv.
@@ -62,13 +65,20 @@ in order to permanently remove a question.
 # Changing the Image
 In order to change the image, you must place the new image file into the folder with the rest of the files. The new
 image must be in .png format. Then, open Constants.py and change the Photo_Image_File variable to the name of the new image
-file.
+file. The resolution size of the image should be smaller than the size of the window, and you may have to adjust padx and pady variables in Constants.py in order to make the image look natural.
+
+# Adding and Removing Buttons
+In order to add or remove buttons, open GUI_For_PI_v6.py. In order to remove a button, remove the ButtonFactory class call
+of the button you wish to remove. You may also remove the variables containing the settings for that button if you wish(They will
+be located in Constants.py). If you wish to add a button, Then add a ButtonFactory call in GUI_For_PI_v6.py. This class takes three parameters: The pin number of the button, the method to be called when the button is pressed, and the bouncetime of the button in milliseconds. For example, if you wanted to add a button on pin 5 that called the buttonPress function when pressed and had a bouncetime of 1 second, your code should look like this:
+
+`ButtonFactory(5, buttonPress, 1000)`
 
 # Changing other Settings
 All other settings will be changed using the variables in Constants.py.
 
 ### Changing the screen resolution / window size
 The settings for the size of the window are near the top of Constants.py. Changing these numbers will change the size of the 
-window, but font size, the size of the image, and padding **Will not** adjust to fit the new settings, and will have to be
+window, but font size, the size of the image, and padding **will not** adjust to fit the new settings, and will have to be
 adjusted manually using the padx, pady, and font size variables in Constants.py
 
