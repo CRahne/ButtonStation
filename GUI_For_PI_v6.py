@@ -154,7 +154,7 @@ Question_Label = Label(mainframe,
 Question_Label.grid(row=Constants.Question_Row,
                     column=Constants.Question_Column,
                     columnspan = Constants.Question_Columnspan,
-                    sticky=W+E+N+S)
+                    sticky=W+E+N+S) # Puts the question label in the middle of the grid space
 
 
 
