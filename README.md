@@ -10,7 +10,7 @@ A GUI that will act as a scoreboard for a this or that questionare. It will be c
 
 1) `git clone https://github.com/CRahne/Intro_CS_GUI.git` into a desired directory on the PI.
 2) You can tweak parts of the program in Constants.py or Questions.csv (more on that later)
-3) Run GUI_For_PI_v6.py, which is in the root directory
+3) Run [GUI_For_PI_v6.py](GUI_For_PI_v6.py), which is in the root directory
 
 ### Wiring
 ![alt text](Docs/Diagram.jpg)
@@ -26,7 +26,36 @@ The settings for the size of the window are near the top of Constants.py. Changi
 window, but font size, the size of the image, and padding **will not** adjust to fit the new settings, and will have to be
 adjusted manually using the padx, pady, and font size variables in Constants.py.
 
-### Files
+### Questions
+
+1) Change or Add questions in the Questions.csv file. An example would be, ```Favorite Animal?, Cat, Dog,```. Note the final comma at the end of the line, as that is important in the next step. Also, if you wanted different sets of questions, you can have multiple csv files.
+2) Run [Question_Converter.py](Question_Converter.py). It will prompt for the filename that stores your questions in [Questions_converted.csv](Questions_converted.csv).
+3) Change the GUI Constraints in [Constants.py](Constants.py).
+
+### Center Photo
+
+You will need to place the desired photo (which must be .png) into the root directory. Then, you must change the ```Photo_Image_File``` variable in [Constants.py](Constants.py). You may need to adjust other variables, such as padding, to account for the size of the photo.
+
+### Changing Button GPIO Pins
+
+The default pins of the buttons are stored in [Constants.py](Constants.py). They are as follows:
+
+```python
+L_Add = 23      # Adds One to the Left Count
+R_Add = 25      # Adds One to the Right Count
+L_Sub = 24      # Subtracts One from the Left Count
+R_Sub = 18      # Subtracts One from the Right Count
+Auto_Finish = 4 # Resets the Poll
+```
+
+To edit these, you simply need to change the value assigned to the variable.
+
+### B
+
+---
+
+## Files
+
 ### ButtonFactory.py
 This file is used to set up the buttons and adds event catchers for each button.
 
@@ -71,11 +100,6 @@ Questions.converted.csv.
 Open Questions.csv and delete the line containing the question you wish to remove. Open Questions_converted.csv and
 delete the question you wish to remove. You must delete the question from Questions.csv **_and_** Questions_converted.csv
 in order to permanently remove a question.
-
-# Changing the Image
-In order to change the image, you must place the new image file into the folder with the rest of the files. The new
-image must be in .png format. Then, open Constants.py and change the Photo_Image_File variable to the name of the new image
-file. The resolution size of the image should be smaller than the size of the window, and you may have to adjust padx and pady variables in Constants.py in order to make the image look natural.
 
 # Adding and Removing Buttons
 In order to add or remove buttons, open GUI_For_PI_v6.py. In order to remove a button, remove the ButtonFactory class call

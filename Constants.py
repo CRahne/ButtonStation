@@ -1,9 +1,9 @@
 # Channel Numbers on PI for Buttons
-L_Add = 23
-R_Add = 25
-L_Sub = 24
-R_Sub = 18 
-Auto_Finish = 4
+L_Add = 23      # Adds One to the Left Count
+R_Add = 25      # Adds One to the Right Count
+L_Sub = 24      # Subtracts One from the Left Count
+R_Sub = 18      # Subtracts One from the Right Count
+Auto_Finish = 4 # Resets the Poll
 
 # Sets the bouncetime for the buttons (The time before the program will register another press from that button, in milliseconds)
 L_Add_Bouncetime = 1000
