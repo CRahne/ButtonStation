@@ -20,7 +20,7 @@ Finish_Value = random.randint(Constants.Finish_Value_Lower_Limit,
 # Creates Root Window Object for the GUI
 root = Tk()
 
-# Root Size and Placement
+# Sets the size and location of the window (In pixels)
 root.geometry(f'{Constants.Window_Width}x{Constants.Window_Height}+{Constants.SpawnPoint_X}+{Constants.SpawnPoint_Y}')
 
 # Root Background Colors
@@ -29,18 +29,21 @@ root.configure(bg=Constants.Window_Background_Color.lower())
 # Creates Grid Object on the Window for placement
 # of Labels
 mainframe = Frame(root)
+# Sets the background color of the frame
 mainframe["bg"] = Constants.Window_Background_Color.lower()
+# Sets up sticky so that it can be used when placing labels
 mainframe.grid(sticky=(N, W, E, S))
 
+# Sets up the columns
 mainframe.columnconfigure(Constants.Window_Number_Of_Columns,
                           weight=Constants.Window_Column_Weight)
 
+# Sets up the rows
 mainframe.rowconfigure(Constants.Window_Number_Of_Rows,
                        weight=Constants.Window_Row_Weight)
 
 
-# Gets a random question from fiel deswignated in
-# Question_Handler.py
+# Gets a random question from file designated in Question_Handler.py
 Start_Question = QH.getRandomQuestion()
 
 
@@ -308,5 +311,5 @@ ButtonFactory(Constants.Auto_Finish, finish,          # Auto-Finish Button
 
 
 
-# Runs GUI
+# Sets up a loop to update the GUI
 root.mainloop()
