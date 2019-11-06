@@ -12,7 +12,7 @@ L_Sub_Bouncetime = 1000
 R_Sub_Bouncetime = 1000
 Auto_Finish_Bouncetime = 3000                                                                                                                                                                                       
 
-# Tkinter Geometry Constants
+# Tkinter Geometry Configurations
  # Spawnpoints are where the GUI pops up when initialized. They
  # should always be set to 0 (upper left-hand corner)
 SpawnPoint_X = 0

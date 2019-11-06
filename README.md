@@ -1,22 +1,32 @@
 # Intro_CS_GUI
-This program is designed to run on a raspberry pi.
 
-This is designed to work with a five button interface. One button to reset the program, two buttons
-to add and subtract from the left value, and two buttons to add and subtract from the right value.
+A GUI that will act as a scoreboard for a this or that questionare. It will be controlled by 5 buttons that are hooked up to a raspberry pi. The program will also pick a random end point and then resets itself with a new question.
 
-The program will select a random "This or That" style question and display it. Users' responses to the
-question will be kept track of using two counts. The counts will be added to or subracted from whenever
-a user presses a button. The program will choose a random number between two preset values, and once 
-either of the counts reaches that number, the screen will briefly flash, then reset the counts and 
-choose a different random question.
+---
 
-In order to run the program, run GUI_For_PI_v6.py.
+## Set Up and Installation
 
-# Wiring
-![alt text](https://github.com/CRahne/Intro_CS_GUI/blob/Library/Docs/Diagram.jpg)
-Our wiring was done on a 40-pin pi, and the default pins are 4, 18, 23, 24, and 25.
+### Software
 
-# Files
+1) `git clone https://github.com/CRahne/Intro_CS_GUI.git` into a desired directory on the PI.
+2) You can tweak parts of the program in Constants.py or Questions.csv (more on that later)
+3) Run GUI_For_PI_v6.py, which is in the root directory
+
+### Wiring
+![alt text](Docs/Diagram.jpg)
+This is a diagram for the Raspberry PI model 4 with a 40 pin layout. You will also need to give it a power supply, a hdmi output, and connections to a USB mouse and keyboard.
+
+---
+
+## Configuration
+
+### GUI (Window) Size
+
+The settings for the size of the window are near the top of Constants.py. Changing these numbers will change the size of the 
+window, but font size, the size of the image, and padding **will not** adjust to fit the new settings, and will have to be
+adjusted manually using the padx, pady, and font size variables in Constants.py.
+
+### Files
 ### ButtonFactory.py
 This file is used to set up the buttons and adds event catchers for each button.
 
@@ -73,12 +83,4 @@ of the button you wish to remove. You may also remove the variables containing t
 be located in Constants.py). If you wish to add a button, Then add a ButtonFactory call in GUI_For_PI_v6.py. This class takes three parameters: The pin number of the button, the method to be called when the button is pressed, and the bouncetime of the button in milliseconds. For example, if you wanted to add a button on pin 5 that called the buttonPress function when pressed and had a bouncetime of 1 second, your code should look like this:
 
 `ButtonFactory(5, buttonPress, 1000)`
-
-# Changing other Settings
-All other settings will be changed using the variables in Constants.py.
-
-### Changing the screen resolution / window size
-The settings for the size of the window are near the top of Constants.py. Changing these numbers will change the size of the 
-window, but font size, the size of the image, and padding **will not** adjust to fit the new settings, and will have to be
-adjusted manually using the padx, pady, and font size variables in Constants.py
 
