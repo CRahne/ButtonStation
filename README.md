@@ -1,6 +1,6 @@
-# Intro_CS_GUI
+# ButtonStation
 
-A GUI that will act as a scoreboard for a this or that questionare. It will be controlled by 5 buttons that are hooked up to a raspberry pi. The program will also pick a random end point and then resets itself with a new question.
+A GUI that will act as a scoreboard for a this or that questionnaire. It will be controlled by 5 buttons that are hooked up to a raspberry pi. The program will also pick a random end point and then resets itself with a new question.
 
 ---
 
@@ -8,10 +8,10 @@ A GUI that will act as a scoreboard for a this or that questionare. It will be c
 
 ### Software
 
-1) `git clone https://github.com/CRahne/Intro_CS_GUI.git` into a desired directory on the PI.
+1) `git clone https://github.com/CRahne/ButtonStation.git` into a desired directory on the PI.
 2) You can tweak parts of the program in Constants.py or Questions.csv (more on that later)
 3) [Install Python 3](https://www.python.org/downloads/). This will install the tkinter module, the used GUI framework.
-3) Run [GUI_For_PI_v6.py](GUI_For_PI_v6.py), which is in the root directory
+3) Run [ButtonStation_v6.py](ButtonStation_v6.py), which is in the root directory
 
 ### Wiring
 ![alt text](Docs/Diagram.jpg)
@@ -75,20 +75,20 @@ There are many variables in [Constants.py](Constants.py) that relate to this.
 |   +-- FIXME.md
 |
 +-- OldVersions
-|   +-- GUI_For_PI.py
-|   +-- GUI_For_PI_v2.py
-|   +-- GUI_For_PI_v3.py
-|   +-- GUI_For_PI_v4.py
-|   +-- GUI_For_PI_v5.py
+|   +-- ButtonStation_v1.py
+|   +-- ButtonStation_v2.py
+|   +-- ButtonStation_v3.py
+|   +-- ButtonStation_v4.py
+|   +-- ButtonStation_v5.py
 |
 +-- TestScripts
-|   +-- test.py
-|   +-- test2.py
-|   +-- test3.py
+|   +-- ButtonTester.py
+|   +-- ButtonTester_With_Events.py
+|   +-- Test_GUI.py
 |
 +-- ButtonFactory.py
 +-- Constants.py
-+-- GUI_For_PI_v6.py
++-- ButtonStation_v6.py
 +-- logo350.png
 +-- Question_Handler.py
 +-- Questions.csv
@@ -96,32 +96,32 @@ There are many variables in [Constants.py](Constants.py) that relate to this.
 +-- README.md
 ```
 
-### ButtonFactory.py
+### [ButtonFactory.py](ButtonFactory.py)
 This file is used to set up the buttons and adds event catchers for each button.
 
-### Constants.py
+### [Constants.py](Constants.py)
 This file stores most of the variables used by the program. This keeps most of the values in one spot, making 
 customizing the program much easier.
 
-### GUI_For_PI_v6.py
+### [ButtonStation_v6.py](ButtonStation_v6.py)
 This is where the majority of the logic takes place. All GUI setup, updates, and general control is done here.
 
-### Question_Handler.py
+### [Question_Handler.py](Question_Handler.py)
 This program formats the questions into a form that can be displayed in the GUI. It returns a random question
 and it's two responses.
 
-### Questions.csv
+### [Questions.csv](Questions.csv)
 This is where all of the pre-converted questions are stored. This file is never directly interfaced with by the
 program, and exists only for the programmer to interact with when adding or removing questions.
 
-### Questions_converted.csv
+### [Questions_converted.csv](Questions_converted.csv)
 This file stores all of the converted questions. This is the file that is referenced by the program when getting
 a random question.
 
-### logo350.png
+### [logo350.png](logo350.png)
 This is the default image to be displayed by the program.
 
-### Question_Converter.py
+### [Question_Converter.py](Question_Converter.py)
 This program converts the questions in Questions.csv and stores the new questions in Questions_converted.csv. It
 is only used by the programmer when adding or removing questions.
 
@@ -142,9 +142,9 @@ delete the question you wish to remove. You must delete the question from Questi
 in order to permanently remove a question.
 
 # Adding and Removing Buttons
-In order to add or remove buttons, open GUI_For_PI_v6.py. In order to remove a button, remove the ButtonFactory class call
+In order to add or remove buttons, open ButtonStation_v6.py. In order to remove a button, remove the ButtonFactory class call
 of the button you wish to remove. You may also remove the variables containing the settings for that button if you wish(They will
-be located in Constants.py). If you wish to add a button, Then add a ButtonFactory call in GUI_For_PI_v6.py. This class takes three parameters: The pin number of the button, the method to be called when the button is pressed, and the bouncetime of the button in milliseconds. For example, if you wanted to add a button on pin 5 that called the buttonPress function when pressed and had a bouncetime of 1 second, your code should look like this:
+be located in Constants.py). If you wish to add a button, Then add a ButtonFactory call in ButtonStation_v6.py. This class takes three parameters: The pin number of the button, the method to be called when the button is pressed, and the bouncetime of the button in milliseconds. For example, if you wanted to add a button on pin 5 that called the buttonPress function when pressed and had a bouncetime of 1 second, your code should look like this:
 
 `ButtonFactory(5, buttonPress, 1000)`
 
