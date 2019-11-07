@@ -125,9 +125,13 @@ This is the default image to be displayed by the program.
 This program converts the questions in Questions.csv and stores the new questions in Questions_converted.csv. It
 is only used by the programmer when adding or removing questions.
 
-# Adding or Removing Questions
+---
 
-### Adding a Question
+## Others
+
+### Adding or Removing Questions
+
+#### Adding a Question
 In order to add a question, you must go to Questions.csv and add the question and it's two respsonses. Each entry
 must be comma seperated. Each line should look like this:
 `Question,Response,Response,`
@@ -136,7 +140,7 @@ After you have added the questions you want to add, you must run Question_Conver
 name of the file containing the new questions, and enter "y" when prompted to write the converted questions to 
 Questions.converted.csv.
 
-### Removing a Question
+#### Removing a Question
 Open Questions.csv and delete the line containing the question you wish to remove. Open Questions_converted.csv and
 delete the question you wish to remove. You must delete the question from Questions.csv **_and_** Questions_converted.csv
 in order to permanently remove a question.
