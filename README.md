@@ -10,6 +10,7 @@ A GUI that will act as a scoreboard for a this or that questionare. It will be c
 
 1) `git clone https://github.com/CRahne/Intro_CS_GUI.git` into a desired directory on the PI.
 2) You can tweak parts of the program in Constants.py or Questions.csv (more on that later)
+3) [Install Python 3](https://www.python.org/downloads/). This will install the tkinter module, the used GUI framework.
 3) Run [GUI_For_PI_v6.py](GUI_For_PI_v6.py), which is in the root directory
 
 ### Wiring
