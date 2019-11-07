@@ -1,3 +1,7 @@
+# Change Values in here are called in the main file,
+# GUI_For_PI_v6.py. By using this file, you can change
+# everything in one places.
+
 # Channel Numbers on PI for Buttons
 L_Add = 23      # Adds One to the Left Count
 R_Add = 25      # Adds One to the Right Count

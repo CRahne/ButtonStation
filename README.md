@@ -24,7 +24,7 @@ This is a diagram for the Raspberry PI model 4 with a 40 pin layout. You will al
 
 The settings for the size of the window are near the top of Constants.py. Changing these numbers will change the size of the 
 window, but font size, the size of the image, and padding **will not** adjust to fit the new settings, and will have to be
-adjusted manually using the padx, pady, and font size variables in Constants.py.
+adjusted manually using the padx, pady, and font size variables in Constants.py. To go full screen, get your monitor pixel dimensions/resolution.
 
 ### Questions
 
@@ -50,11 +50,50 @@ Auto_Finish = 4 # Resets the Poll
 
 To edit these, you simply need to change the value assigned to the variable.
 
-### B
+### Colors
+
+There are many variables in [Constants.py](Constants.py) that relate to this.
+
+
 
 ---
 
 ## Files
+
+### Directory Overview
+```
+.
++-- BackUpImages
+|   +-- Logo.png
+|   +-- logo300.png
+|   +-- logo325.png
+|   +-- logo400.png
+|
++-- Docs
+|   +-- Diagram.jpg
+|   +-- FIXME.md
+|
++-- OldVersions
+|   +-- GUI_For_PI.py
+|   +-- GUI_For_PI_v2.py
+|   +-- GUI_For_PI_v3.py
+|   +-- GUI_For_PI_v4.py
+|   +-- GUI_For_PI_v5.py
+|
++-- TestScripts
+|   +-- test.py
+|   +-- test2.py
+|   +-- test3.py
+|
++-- ButtonFactory.py
++-- Constants.py
++-- GUI_For_PI_v6.py
++-- logo350.png
++-- Question_Handler.py
++-- Questions.csv
++-- Questions_converted.csv
++-- README.md
+```
 
 ### ButtonFactory.py
 This file is used to set up the buttons and adds event catchers for each button.
